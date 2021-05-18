@@ -1,0 +1,145 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema",
+    "$id": "http://example.com/grades.schema.json",
+    "type": "object",
+    "title": "Grades",
+    "description": "This schema describes a tracker for grades",
+    "default": {},
+    "examples": [
+        {
+            "Course": [
+                {
+                    "Code": "",
+                    "Evaluations": [],
+                    "Description": "",
+                    "Weight": 0,
+                    "OutOf": 0,
+                    "EarnedMarks": 0
+                }
+            ]
+        }
+    ],
+    "required": [
+        "Course"
+    ],
+    "properties": {
+        "Course": {
+            "$id": "#/properties/Course",
+            "type": "array",
+            "title": "The Course schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": [],
+            "examples": [
+                [
+                    {
+                        "Code": "",
+                        "Evaluations": [],
+                        "Description": "",
+                        "Weight": 0,
+                        "OutOf": 0,
+                        "EarnedMarks": 0
+                    }
+                ]
+            ],
+            "additionalItems": true,
+            "items": {
+                "$id": "#/properties/Course/items",
+                "anyOf": [
+                    {
+                        "$id": "#/properties/Course/items/anyOf/0",
+                        "type": "object",
+                        "title": "The first anyOf schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": {},
+                        "examples": [
+                            {
+                                "Code": "",
+                                "Evaluations": [],
+                                "Description": "",
+                                "Weight": 0,
+                                "OutOf": 0,
+                                "EarnedMarks": 0
+                            }
+                        ],
+                        "required": [
+                            "Code",
+                            "Evaluations",
+                            "Description",
+                            "Weight",
+                            "OutOf",
+                            "EarnedMarks"
+                        ],
+                        "properties": {
+                            "Code": {
+                                "$id": "#/properties/Course/items/anyOf/0/properties/Code",
+                                "type": "string",
+                                "title": "The Code schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    ""
+                                ]
+                            },
+                            "Evaluations": {
+                                "$id": "#/properties/Course/items/anyOf/0/properties/Evaluations",
+                                "type": "array",
+                                "title": "The Evaluations schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": [],
+                                "examples": [
+                                    []
+                                ],
+                                "additionalItems": true,
+                                "items": {
+                                    "$id": "#/properties/Course/items/anyOf/0/properties/Evaluations/items"
+                                }
+                            },
+                            "Description": {
+                                "$id": "#/properties/Course/items/anyOf/0/properties/Description",
+                                "type": "string",
+                                "title": "The Description schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    ""
+                                ]
+                            },
+                            "Weight": {
+                                "$id": "#/properties/Course/items/anyOf/0/properties/Weight",
+                                "type": "integer",
+                                "title": "The Weight schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": 0,
+                                "examples": [
+                                    0
+                                ]
+                            },
+                            "OutOf": {
+                                "$id": "#/properties/Course/items/anyOf/0/properties/OutOf",
+                                "type": "integer",
+                                "title": "The OutOf schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": 0,
+                                "examples": [
+                                    0
+                                ]
+                            },
+                            "EarnedMarks": {
+                                "$id": "#/properties/Course/items/anyOf/0/properties/EarnedMarks",
+                                "type": "integer",
+                                "title": "The EarnedMarks schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": 0,
+                                "examples": [
+                                    0
+                                ]
+                            }
+                        },
+                        "additionalProperties": true
+                    }
+                ]
+            }
+        }
+    },
+    "additionalProperties": true
+}

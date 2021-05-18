@@ -1,0 +1,12 @@
+{
+    "Course" : [
+        {
+            "Code" : "",
+            "Evaluations" : [],
+            "Description" : "",
+            "Weight" : 0,
+            "OutOf" : 0,
+            "EarnedMarks" : 0
+        }
+    ]
+}
