@@ -1,0 +1,64 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "GradesTracker.Main/1.0.0": {
+        "dependencies": {
+          "GradesTracker.Data": "1.0.0",
+          "GradesTracker.Logic": "1.0.0",
+          "GradesTracker.Presentation": "1.0.0"
+        },
+        "runtime": {
+          "GradesTracker.Main.dll": {}
+        }
+      },
+      "GradesTracker.Data/1.0.0": {
+        "runtime": {
+          "GradesTracker.Data.dll": {}
+        }
+      },
+      "GradesTracker.Logic/1.0.0": {
+        "dependencies": {
+          "GradesTracker.Data": "1.0.0"
+        },
+        "runtime": {
+          "GradesTracker.Logic.dll": {}
+        }
+      },
+      "GradesTracker.Presentation/1.0.0": {
+        "dependencies": {
+          "GradesTracker.Data": "1.0.0"
+        },
+        "runtime": {
+          "GradesTracker.Presentation.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "GradesTracker.Main/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "GradesTracker.Data/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "GradesTracker.Logic/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "GradesTracker.Presentation/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

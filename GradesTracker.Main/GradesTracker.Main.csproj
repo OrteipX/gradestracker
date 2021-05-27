@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\GradesTracker.Data\GradesTracker.Data.csproj" />
+    <ProjectReference Include="..\GradesTracker.Logic\GradesTracker.Logic.csproj" />
+    <ProjectReference Include="..\GradesTracker.Presentation\GradesTracker.Presentation.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+</Project>

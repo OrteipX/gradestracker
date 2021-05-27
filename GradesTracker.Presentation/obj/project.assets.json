@@ -1,0 +1,92 @@
+{
+  "version": 3,
+  "targets": {
+    "net5.0": {
+      "GradesTracker.Data/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/GradesTracker.Data.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/GradesTracker.Data.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "GradesTracker.Data/1.0.0": {
+      "type": "project",
+      "path": "../GradesTracker.Data/GradesTracker.Data.csproj",
+      "msbuildProject": "../GradesTracker.Data/GradesTracker.Data.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net5.0": [
+      "GradesTracker.Data >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "/home/ramon/.nuget/packages/": {},
+    "/usr/share/dotnet/sdk/NuGetFallbackFolder": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "/home/ramon/Documents/Fanshawe/4th_Term/INFO-3138_Programming_with_Declarative_Language/Projects/p1/gradestracker/GradesTracker.Presentation/GradesTracker.Presentation.csproj",
+      "projectName": "GradesTracker.Presentation",
+      "projectPath": "/home/ramon/Documents/Fanshawe/4th_Term/INFO-3138_Programming_with_Declarative_Language/Projects/p1/gradestracker/GradesTracker.Presentation/GradesTracker.Presentation.csproj",
+      "packagesPath": "/home/ramon/.nuget/packages/",
+      "outputPath": "/home/ramon/Documents/Fanshawe/4th_Term/INFO-3138_Programming_with_Declarative_Language/Projects/p1/gradestracker/GradesTracker.Presentation/obj/",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "/usr/share/dotnet/sdk/NuGetFallbackFolder"
+      ],
+      "configFilePaths": [
+        "/home/ramon/.nuget/NuGet/NuGet.Config"
+      ],
+      "originalTargetFrameworks": [
+        "net5.0"
+      ],
+      "sources": {
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "projectReferences": {
+            "/home/ramon/Documents/Fanshawe/4th_Term/INFO-3138_Programming_with_Declarative_Language/Projects/p1/gradestracker/GradesTracker.Data/GradesTracker.Data.csproj": {
+              "projectPath": "/home/ramon/Documents/Fanshawe/4th_Term/INFO-3138_Programming_with_Declarative_Language/Projects/p1/gradestracker/GradesTracker.Data/GradesTracker.Data.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net5.0": {
+        "targetAlias": "net5.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.300/RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "GradesTracker.Logic/1.0.0": {
+        "dependencies": {
+          "GradesTracker.Data": "1.0.0"
+        },
+        "runtime": {
+          "GradesTracker.Logic.dll": {}
+        }
+      },
+      "GradesTracker.Data/1.0.0": {
+        "runtime": {
+          "GradesTracker.Data.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "GradesTracker.Logic/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "GradesTracker.Data/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
