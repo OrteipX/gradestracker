@@ -8,7 +8,8 @@
     ".NETCoreApp,Version=v5.0": {
       "GradesTracker.Presentation/1.0.0": {
         "dependencies": {
-          "GradesTracker.Data": "1.0.0"
+          "GradesTracker.Data": "1.0.0",
+          "GradesTracker.Logic": "1.0.0"
         },
         "runtime": {
           "GradesTracker.Presentation.dll": {}
@@ -17,6 +18,14 @@
       "GradesTracker.Data/1.0.0": {
         "runtime": {
           "GradesTracker.Data.dll": {}
+        }
+      },
+      "GradesTracker.Logic/1.0.0": {
+        "dependencies": {
+          "GradesTracker.Data": "1.0.0"
+        },
+        "runtime": {
+          "GradesTracker.Logic.dll": {}
         }
       }
     }
@@ -28,6 +37,11 @@
       "sha512": ""
     },
     "GradesTracker.Data/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "GradesTracker.Logic/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

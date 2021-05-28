@@ -11,6 +11,19 @@
         "runtime": {
           "bin/placeholder/GradesTracker.Data.dll": {}
         }
+      },
+      "GradesTracker.Logic/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "GradesTracker.Data": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/GradesTracker.Logic.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/GradesTracker.Logic.dll": {}
+        }
       }
     }
   },
@@ -19,11 +32,17 @@
       "type": "project",
       "path": "../GradesTracker.Data/GradesTracker.Data.csproj",
       "msbuildProject": "../GradesTracker.Data/GradesTracker.Data.csproj"
+    },
+    "GradesTracker.Logic/1.0.0": {
+      "type": "project",
+      "path": "../GradesTracker.Logic/GradesTracker.Logic.csproj",
+      "msbuildProject": "../GradesTracker.Logic/GradesTracker.Logic.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
-      "GradesTracker.Data >= 1.0.0"
+      "GradesTracker.Data >= 1.0.0",
+      "GradesTracker.Logic >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -57,6 +76,9 @@
           "projectReferences": {
             "/home/ramon/Documents/Fanshawe/4th_Term/INFO-3138_Programming_with_Declarative_Language/Projects/p1/gradestracker/GradesTracker.Data/GradesTracker.Data.csproj": {
               "projectPath": "/home/ramon/Documents/Fanshawe/4th_Term/INFO-3138_Programming_with_Declarative_Language/Projects/p1/gradestracker/GradesTracker.Data/GradesTracker.Data.csproj"
+            },
+            "/home/ramon/Documents/Fanshawe/4th_Term/INFO-3138_Programming_with_Declarative_Language/Projects/p1/gradestracker/GradesTracker.Logic/GradesTracker.Logic.csproj": {
+              "projectPath": "/home/ramon/Documents/Fanshawe/4th_Term/INFO-3138_Programming_with_Declarative_Language/Projects/p1/gradestracker/GradesTracker.Logic/GradesTracker.Logic.csproj"
             }
           }
         }

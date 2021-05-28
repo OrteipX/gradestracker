@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GradesTracker.Data\GradesTracker.Data.csproj" />
+    <ProjectReference Include="..\GradesTracker.Logic\GradesTracker.Logic.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

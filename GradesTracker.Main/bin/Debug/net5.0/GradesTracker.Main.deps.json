@@ -31,7 +31,8 @@
       },
       "GradesTracker.Presentation/1.0.0": {
         "dependencies": {
-          "GradesTracker.Data": "1.0.0"
+          "GradesTracker.Data": "1.0.0",
+          "GradesTracker.Logic": "1.0.0"
         },
         "runtime": {
           "GradesTracker.Presentation.dll": {}

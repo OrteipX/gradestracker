@@ -210,6 +210,9 @@
             "projectReferences": {
               "/home/ramon/Documents/Fanshawe/4th_Term/INFO-3138_Programming_with_Declarative_Language/Projects/p1/gradestracker/GradesTracker.Data/GradesTracker.Data.csproj": {
                 "projectPath": "/home/ramon/Documents/Fanshawe/4th_Term/INFO-3138_Programming_with_Declarative_Language/Projects/p1/gradestracker/GradesTracker.Data/GradesTracker.Data.csproj"
+              },
+              "/home/ramon/Documents/Fanshawe/4th_Term/INFO-3138_Programming_with_Declarative_Language/Projects/p1/gradestracker/GradesTracker.Logic/GradesTracker.Logic.csproj": {
+                "projectPath": "/home/ramon/Documents/Fanshawe/4th_Term/INFO-3138_Programming_with_Declarative_Language/Projects/p1/gradestracker/GradesTracker.Logic/GradesTracker.Logic.csproj"
               }
             }
           }

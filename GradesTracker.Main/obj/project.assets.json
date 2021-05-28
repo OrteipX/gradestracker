@@ -29,7 +29,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
-          "GradesTracker.Data": "1.0.0"
+          "GradesTracker.Data": "1.0.0",
+          "GradesTracker.Logic": "1.0.0"
         },
         "compile": {
           "bin/placeholder/GradesTracker.Presentation.dll": {}
