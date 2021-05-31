@@ -7,6 +7,9 @@ namespace GradesTracker.Presentation
 {
     public class Ui
     {
+        private static readonly int TITLE_DASH = 82;
+        private static readonly int FOOTER_DASH = 84;
+
         private enum Footer
         {
             COURSE_SUMMARY,
@@ -18,36 +21,54 @@ namespace GradesTracker.Presentation
         {
         }
 
-        public void DrawSummary(List<Course> courses)
+        public void PrintCourseSummary(List<Course> courses)
         {
-            /*
-            DrawTitle("Grades Summary");
-            DrawBody(courses);
-            DrawFooter(Footer.Main);
-            */
+            PrintTitle("Grades Summary");
+            PrintBody(courses);
+            PrintFooter(Footer.COURSE_SUMMARY);
         }
 
-        /*
-        public void DrawSpecific(Course course)
+        public void PrintEvaluationSummary(Course course)
         {
-            DrawTitle($"{course.Code} Evaluations");
-            DrawBody(course);
-            DrawFooter(Footer.Evaluation);
+            PrintTitle($"{course.Code} Evaluations");
+            PrintBody(course);
+            PrintFooter(Footer.EVALUATION_SUMMARY);
         }
 
-        private void DrawTitle(string title)
+        public void PrintEvaluationSpecific(Course course, Evaluation eval)
         {
-            //Console.SetCursorPosition((Console.WindowWidth - title.Length) / 2, Console.CursorTop);
+            PrintTitle($"{course.Code} {eval.Description}");
+            PrintBody(eval);
+            PrintFooter(Footer.EVALUATION_SPECIFIC);
+        }
+
+        private void PrintTitle(string title)
+        {
+            int titleLength = title.Length;
+
+            // title
+            Console.Write("".PadRight((TITLE_DASH - 24) / 2, ' '));
+            Console.Write("~ GRADES TRACKING SYSTEM ~");
+            Console.WriteLine("".PadLeft((TITLE_DASH - titleLength) / 2, ' '));
 
             Console.WriteLine(
-                    "                       ~ GRADES TRACKING SYSTEM ~\n"
-                    +  "+-----------------------------------------------------------------+\n"
-                    + $"|                        {title}                           |\n"
-                    +  "+-----------------------------------------------------------------+\n"
-                );
+                    "+"
+                    + "".PadRight(TITLE_DASH, '-')
+                    + "+"
+            );
+            Console.Write("|");
+            Console.Write("".PadRight((TITLE_DASH + 1 - titleLength) / 2));
+            Console.Write(title);
+            Console.Write("".PadLeft((TITLE_DASH - titleLength) / 2));
+            Console.WriteLine('|');
+            Console.WriteLine(
+                    "+"
+                    + "".PadRight(TITLE_DASH, '-')
+                    + "+\n"
+            );
         }
 
-        private void DrawBody(List<Course> courses)
+        private void PrintBody(List<Course> courses)
         {
             if (courses.Count == 0)
             {
@@ -55,75 +76,94 @@ namespace GradesTracker.Presentation
             }
             else
             {
-                Console.WriteLine("#. Course\tMarks Earned\tOut Of\tPercent\n");
-
-                int courseIndex = 0;
+                Console.WriteLine(
+                        $"{"#.", -3}"
+                        + $"{"Course", -12}"
+                        + $"{"Marks Earned", 15}"
+                        + $"{"Out Of", 10}"
+                        + $"{"Percent", 11}"
+                        + '\n'
+                    );
 
                 foreach (Course course in courses)
                 {
-                    ++courseIndex;
+                    Course c = course;
+                    GradeManagement.CalculateEvaluations(ref c);
+                    GradeManagement.RecalculateCourseTotal(ref c);
 
                     Console.Write(
-                            $"{courseIndex}  {course.Code}"
-                    );
-
-                    if (course.Evaluations.Count != 0)
-                    {
-                        foreach (Evaluation eval in course.Evaluations)
-                        {
-                            Console.WriteLine($"\t{eval.EarnedMarks}\t{eval.OutOf}\t{eval.Percent}");
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine($"\t{0}\t{0.0}\t{0.0}");
-                    }
+                            $"{course.Id, -3}"
+                            + $"{course.Code, -12}"
+                            + $"{c.CourseMarksTotal, 15:f2}"
+                            + $"{c.WeightTotal, 10:f2}"
+                            + $"{c.PercentTotal, 11:f2}\n"
+                        );
                 }
             }
         }
 
-        private void DrawBody(Course course)
+        private void PrintBody(Course course)
         {
-            bool courseHasEval = CourseManagement.CourseHasEvaluation(course);
-            if (!courseHasEval)
+            if (course.Evaluations.Count == 0)
             {
                 Console.WriteLine($"There are currently no evaluations for {course.Code}.");
             }
             else
             {
-                Console.WriteLine("#. Evaluation\tMarks Earned\tOut Of\tPercent\tCourse Marks\tWeight/100\n");
+                GradeManagement.CalculateEvaluations(ref course);
 
-                int evaluationIndex = 0;
+                Console.WriteLine(
+                    $"{"#.", -3}"
+                    + $"{"Evaluation", -16}"
+                    + $"{"Marks Earned", 15}"
+                    + $"{"Out Of", 10}"
+                    + $"{"Percent", 11}"
+                    + $"{"Course Marks", 16}"
+                    + $"{"Weight/100", 13}\n"
+                    );
+
                 foreach (Evaluation eval in course.Evaluations)
                 {
-                    ++evaluationIndex;
-
-                    //double percent = 100 * eval.EarnedMarks / eval.OutOf;
-                    //double courseMarks = percent * eval.Weight / 100;
-
-                    Console.WriteLine(
-                            $"{evaluationIndex} "
-                            + $"{eval.Description}"
-                            + $"\t{eval.EarnedMarks}"
-                            + $"\t{eval.OutOf}"
-                            + $"\t{eval.Percent}"
-                            + $"\t{eval.CourseMarks}"
-                            + $"\t{eval.Weight / 100}"
-                    );
+                    Console.Write($"{eval.Id + ".", -3}");
+                    Console.Write($"{eval.Description, -16}");
+                    Console.Write($"{eval.EarnedMarks, 15:f2}");
+                    Console.Write($"{eval.OutOf, 10:f2}");
+                    Console.Write($"{eval.Percent, 11:f2}");
+                    Console.Write($"{eval.CourseMarks, 16:f2}");
+                    Console.Write($"{eval.Weight, 13:f2}\n");
                 }
             }
         }
 
-        private void DrawFooter(Footer footer)
+        private void PrintBody(Evaluation eval)
+        {
+            Console.WriteLine(
+                    $"{"Marks Earned", -12}"
+                    + $"{"Out Of", 10}"
+                    + $"{"Percent", 11}"
+                    + $"{"Course Marks", 16}"
+                    + $"{"Weight/100", 13}"
+            );
+
+            Console.Write($"{eval.EarnedMarks, 12:f2}");
+            Console.Write($"{eval.OutOf, 10:f2}");
+            Console.Write($"{eval.Percent, 11:f2}");
+            Console.Write($"{eval.CourseMarks, 16:f2}");
+            Console.Write($"{eval.Weight, 13:f2}\n");
+        }
+
+        private void PrintFooter(Footer footer)
         {
             if (footer == Footer.COURSE_SUMMARY)
             {
                 Console.WriteLine(
-                          "\n---------------------------------------------------------------------------\n"
-                        + " Press # from the above list to view/edit/delete a specific course.\n"
+                        "\n"
+                        + "".PadRight(FOOTER_DASH, '-')
+                        + "\n Press # from the above list to view/edit/delete a specific course.\n"
                         + " Press A to add a new course.\n"
                         + " Press X to quit.\n"
-                        + "---------------------------------------------------------------------------\n"
+                        + "".PadRight(FOOTER_DASH, '-')
+                        + "\n"
                 );
 
                 Console.Write("Enter a command: ");
@@ -131,12 +171,14 @@ namespace GradesTracker.Presentation
             else if (footer == Footer.EVALUATION_SUMMARY)
             {
                 Console.WriteLine(
-                          "\n---------------------------------------------------------------------------\n"
-                        + " Press D to delete this course.\n"
+                        "\n"
+                        + "".PadRight(FOOTER_DASH, '-')
+                        + "\n Press D to delete this course.\n"
                         + " Press A to add an evaluation\n"
                         + " Press # from the above list to edit/delete a specific evaluation.\n"
                         + " Press X to return to the main menu.\n"
-                        + "---------------------------------------------------------------------------\n"
+                        + "".PadRight(FOOTER_DASH, '-')
+                        + "\n"
                 );
 
                 Console.Write("Enter a command: ");
@@ -144,16 +186,17 @@ namespace GradesTracker.Presentation
             else if (footer == Footer.EVALUATION_SPECIFIC)
             {
                 Console.WriteLine(
-                          "\n---------------------------------------------------------------------------\n"
-                        + " Press D to delete this evaluation.\n"
+                        "\n"
+                        + "".PadRight(FOOTER_DASH, '-')
+                        + "\n Press D to delete this evaluation.\n"
                         + " Press E to edit this evaluation\n"
                         + " Press X to return to the main menu.\n"
-                        + "---------------------------------------------------------------------------\n"
+                        + "".PadRight(FOOTER_DASH, '-')
+                        + "\n"
                 );
 
                 Console.Write("Enter a command: ");
             }
         }
-        */
     }
 }

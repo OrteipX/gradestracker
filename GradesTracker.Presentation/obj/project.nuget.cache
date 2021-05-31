@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Fo/J2P4e+jIheIcQbxKS65Ne2wGeD7pQbAiwXotkkXM6Cgzyd9a76uwB0w11t7BHf2ij9NkcW93q1FhgXy2LhA==",
+  "dgSpecHash": "ETERPkoinxcLxH3URmqhUVhMIdpCIDi3N4jo7oiI36sSAX033XbdppAxwnOQPQXp5kkD7Sr7GwG6XpqOvx1okg==",
   "success": true,
   "projectFilePath": "/home/ramon/Documents/Fanshawe/4th_Term/INFO-3138_Programming_with_Declarative_Language/Projects/p1/gradestracker/GradesTracker.Presentation/GradesTracker.Presentation.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/home/ramon/.nuget/packages/newtonsoft.json/13.0.1/newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
   "logs": []
 }

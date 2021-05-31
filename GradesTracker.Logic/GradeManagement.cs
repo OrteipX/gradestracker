@@ -69,11 +69,14 @@ namespace GradesTracker.Logic
         public static void AddEvaluation(ref Course course, Evaluation eval)
         {
             course.Evaluations.Add(eval);
+
             ParseEvaluations(ref course.Evaluations);
         }
 
-        public static void DeleteEvaluation(ref List<Evaluation> evaluations, Evaluation eval)
+        public static void DeleteEvaluation(ref Course course, Evaluation eval)
         {
+            List<Evaluation> evaluations = course.Evaluations;
+
             foreach (Evaluation e in evaluations)
             {
                 if (e.Id == eval.Id)
@@ -87,15 +90,54 @@ namespace GradesTracker.Logic
                 ParseEvaluations(ref evaluations);
         }
 
-        public static bool CourseHasEvaluation(Course course)
+        public static void CalculateEvaluations(ref Course course)
         {
-            foreach (Evaluation eval in course.Evaluations)
+            List<Evaluation> evaluations = course.Evaluations;
+
+            foreach (Evaluation eval in evaluations)
             {
-                if (!string.IsNullOrEmpty(eval.Description))
-                    return true;
+                double? checkNullable = eval.EarnedMarks;
+                double percent = 0.0;
+
+                if (checkNullable.HasValue)
+                {
+                    double earnedMarks = checkNullable.Value;
+                    percent = GradeManagement.CalculatePercent(eval.OutOf, earnedMarks);
+                }
+
+                double courseMarks = GradeManagement.CalculateCourseMarks(percent, eval.Weight);
+
+                eval.Percent = percent;
+                eval.CourseMarks = courseMarks;
+            }
+        }
+
+        public static void RecalculateCourseTotal(ref Course course)
+        {
+            double courseMarksTotal = 0.0;
+            double weightTotal = 0.0;
+
+            foreach (Evaluation e in course.Evaluations)
+            {
+                courseMarksTotal += e.CourseMarks;
+                weightTotal += e.Weight;
             }
 
-            return false;
+            double percentTotal = 100 * courseMarksTotal / weightTotal;
+
+            course.CourseMarksTotal = courseMarksTotal;
+            course.WeightTotal = weightTotal;
+            course.PercentTotal = percentTotal;
+        }
+
+        public static double CalculatePercent(int outOf, double earnedMarks)
+        {
+            return 100 * earnedMarks / outOf;
+        }
+
+        public static double CalculateCourseMarks(double percent, double weight)
+        {
+            return percent * weight / 100;
         }
 
         public static bool CourseExists(List<Course> courses, string code)

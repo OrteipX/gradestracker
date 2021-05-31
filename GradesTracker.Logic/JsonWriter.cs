@@ -28,5 +28,6 @@ namespace GradesTracker.Logic
                 Console.WriteLine("ERROR: Can't serialize the object to JSON.");
             }
         }
+
     }
 }

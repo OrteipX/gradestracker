@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Schema;
 
 namespace GradesTracker.Logic
 {
@@ -46,6 +49,35 @@ namespace GradesTracker.Logic
             }
 
             return true;
+        }
+
+        public static bool ValidateJsonObj(string jsonString, string jsonSchema)
+        {
+            IList<string> validationEvents = new List<string>();
+            try
+            {
+                JsonSchema schema = JsonSchema.Parse(System.IO.File.ReadAllText(jsonSchema));
+                JObject jsonObject = JObject.Parse(jsonString);
+
+                if (jsonObject.IsValid(schema, out validationEvents))
+                {
+                    return true;
+                }
+                else
+                {
+                    foreach (string evt in validationEvents)
+                    {
+                        Console.WriteLine(evt);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
+            return false;
+
         }
     }
 }

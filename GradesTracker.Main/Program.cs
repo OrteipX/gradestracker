@@ -10,28 +10,6 @@ namespace GradesTracker.Main
 {
     class Program
     {
-        private static void Print(List<Course> courses)
-        {
-            foreach (Course c in courses)
-                Console.WriteLine($"{c.Id}.  {c.Code}");
-        }
-
-        private static void Print(Course course)
-        {
-            Console.WriteLine($"{course.Id}.  {course.Code}");
-        }
-
-        private static void Print(List<Evaluation> evaluations)
-        {
-            foreach (Evaluation e in evaluations)
-                Console.WriteLine($"{e.Id}.  {e.Description}");
-        }
-
-        private static void Print(Evaluation eval)
-        {
-            Console.WriteLine($"{eval.EarnedMarks}\t{eval.OutOf}\t{eval.Percent}");
-        }
-
         static void Main(string[] args)
         {
             string projectDirectory = System.IO.Directory.GetCurrentDirectory();
@@ -39,6 +17,10 @@ namespace GradesTracker.Main
                         projectDirectory,
                         @"../GradesTracker.Data/",
                         Constants.JSON_FILE));
+            string schemaFile = Path.GetFullPath(Path.Combine(
+                        projectDirectory,
+                        @"../GradesTracker.Data/",
+                        Constants.JSON_SCHEMA));
 
             char ans;
             bool valid;
@@ -81,15 +63,18 @@ namespace GradesTracker.Main
 
             try
             {
+                // first loop
                 while (true)
                 {
-                    Print(courses);
+                    //Console.Clear();
+                    ui.PrintCourseSummary(courses);
+
                     string option = Console.ReadLine();
                     int courseId;
 
                     if (option == "X")
                     {
-                        Console.WriteLine("QUIT");
+                        Console.WriteLine("Bye...");
                         break;
                     }
                     else if (option == "A")
@@ -97,9 +82,17 @@ namespace GradesTracker.Main
                         Console.Write("\nEnter a course code: ");
                         string code = Console.ReadLine();
 
+                        bool valideJson = Util.ValidateJsonObj(code, schemaFile);
+
+                        if (valideJson)
+                            Console.WriteLine("VALID");
+                        else
+                            Console.WriteLine("NOT VALID");
+
                         if (GradeManagement.CourseExists(courses, code))
                         {
                             Console.WriteLine("ERROR: Course already exists.");
+                            Thread.Sleep(Constants.TIMEOUT);
                             continue;
                         }
 
@@ -112,23 +105,25 @@ namespace GradesTracker.Main
                         if (courseId <= 0 || courseId > courses.Count)
                         {
                             Console.WriteLine("ERROR: Course Id out not found.");
+                            Thread.Sleep(Constants.TIMEOUT);
                             continue;
                         }
 
                         Course selectedCourse = GradeManagement.GetCourse(courses, courseId);
                         GradeManagement.ParseEvaluations(ref selectedCourse.Evaluations);
 
-                        // second loop
+                       // second loop
                         while (true)
                         {
-                            Print(selectedCourse.Evaluations);
-                            Console.Write("ADD/EDIT/DELETE/BACK: ");
+                            //Console.Clear();
+                            ui.PrintEvaluationSummary(selectedCourse);
+
                             option = Console.ReadLine();
+
                             int evaluationId;
 
                             if (option == "X")
                             {
-                                Console.WriteLine("BACK SCREEN");
                                 break;
                             }
                             else if (option == "D")
@@ -145,6 +140,7 @@ namespace GradesTracker.Main
                                         {
                                             GradeManagement.DeleteCourse(ref courses, selectedCourse);
                                             Console.WriteLine($"\nCourse \'{selectedCourse.Code}\' removed.");
+                                            Thread.Sleep(Constants.TIMEOUT);
                                         }
                                     }
                                     else
@@ -152,6 +148,8 @@ namespace GradesTracker.Main
                                         Console.WriteLine("\nERROR: Invalid option.");
                                     }
                                 } while (!valid);
+
+                                break;
                             }
                             else if (option == "A")
                             {
@@ -242,16 +240,18 @@ namespace GradesTracker.Main
                                 if (evaluationId <= 0 || evaluationId > selectedCourse.Evaluations.Count)
                                 {
                                     Console.WriteLine("ERROR: Evaluation Id out not found.");
+                                    Thread.Sleep(Constants.TIMEOUT);
                                     continue;
                                 }
 
                                 Evaluation selectedEvaluation = GradeManagement.GetEvaluation(selectedCourse.Evaluations, evaluationId);
-                                Print(selectedEvaluation);
 
                                 // third loop
                                 while (true)
                                 {
-                                    Console.Write("EDIT/DELETE/BACK: ");
+                                    //Console.Clear();
+                                    ui.PrintEvaluationSpecific(selectedCourse, selectedEvaluation);
+
                                     option = Console.ReadLine();
 
                                     if (option == "X")
@@ -271,8 +271,9 @@ namespace GradesTracker.Main
                                             {
                                                 if (ans == 'Y')
                                                 {
-                                                    GradeManagement.DeleteEvaluation(ref selectedCourse.Evaluations, selectedEvaluation);
+                                                    GradeManagement.DeleteEvaluation(ref selectedCourse, selectedEvaluation);
                                                     Console.WriteLine($"\nEvaluation \'{selectedEvaluation.Description}\' removed.");
+                                                    Thread.Sleep(Constants.TIMEOUT);
                                                 }
                                             }
                                             else
@@ -288,9 +289,15 @@ namespace GradesTracker.Main
                                         int index;
                                         do
                                         {
-                                            Console.Write("\nChoose the index of what you would like to edit."
+                                            Console.Write("\nChoose the index of what you would like to edit or \"X\" to cancel."
                                                     + "\n(Marks Earned [1], Out Of [2], Weight [3]): ");
                                             option = Console.ReadLine();
+
+                                            if (option == "X")
+                                            {
+                                                index = 0;
+                                                break;
+                                            }
 
                                             valid = int.TryParse(option, out index);
 
@@ -377,7 +384,7 @@ namespace GradesTracker.Main
 
                                             } while (!valid);
                                         }
-                                        else
+                                        else if (index == 3)
                                         {
                                             do
                                             {
@@ -410,18 +417,29 @@ namespace GradesTracker.Main
 
                                             } while (!valid);
                                         }
+                                        else
+                                        {
+                                            break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("ERROR: Option not available.");
+                                        Thread.Sleep(Constants.TIMEOUT);
                                     }
                                 }
-
-                                //JsonWriter.WriteLibToJsonFile(courses, gradesFile);
+                            }
+                            else
+                            {
+                                Console.WriteLine("ERROR: Option not available.");
+                                Thread.Sleep(Constants.TIMEOUT);
                             }
                         }
-
-                        //JsonWriter.WriteLibToJsonFile(courses, gradesFile);
                     }
                     else
                     {
                         Console.WriteLine("ERROR: Option not available.");
+                        Thread.Sleep(Constants.TIMEOUT);
                     }
                 }
             }
@@ -433,8 +451,6 @@ namespace GradesTracker.Main
             {
                 JsonWriter.WriteLibToJsonFile(courses, gradesFile);
             }
-
-            Console.WriteLine("\nME MAMA HARRY POTTER SEU IMUNDOOOOO!!!!!");
         }
     }
 }

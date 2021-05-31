@@ -12,6 +12,9 @@ namespace GradesTracker.Data
         public string Code { get; set; }
         [DataMember]
         public List<Evaluation> Evaluations = new List<Evaluation>();
+        public double CourseMarksTotal { get; set; } = 0.0;
+        public double WeightTotal { get; set; } = 0.0;
+        public double PercentTotal { get; set; } = 0.0;
     }
 
     [DataContract]
@@ -21,12 +24,12 @@ namespace GradesTracker.Data
         [DataMember]
         public string Description { get; set; }
         [DataMember]
-        public int OutOf { get; set; }
+        public int OutOf { get; set; } = 0;
         [DataMember]
-        public double Weight { get; set; }
+        public double Weight { get; set; } = 0.0;
         [DataMember]
-        public double? EarnedMarks { get; set; }
-        public double Percent { get; set; }
-        public double CourseMarks { get; set; }
+        public double? EarnedMarks { get; set; } = 0.0;
+        public double Percent { get; set; } = 0.0;
+        public double CourseMarks { get; set; } = 0.0;
     }
 }
