@@ -123,7 +123,9 @@ namespace GradesTracker.Logic
                 weightTotal += e.Weight;
             }
 
-            double percentTotal = 100 * courseMarksTotal / weightTotal;
+            double percentTotal = 00;
+            if (weightTotal > 0)
+                percentTotal = 100 * courseMarksTotal / weightTotal;
 
             course.CourseMarksTotal = courseMarksTotal;
             course.WeightTotal = weightTotal;
@@ -132,7 +134,10 @@ namespace GradesTracker.Logic
 
         public static double CalculatePercent(int outOf, double earnedMarks)
         {
-            return 100 * earnedMarks / outOf;
+            if (outOf > 0)
+                return 100 * earnedMarks / outOf;
+
+            return 0;
         }
 
         public static double CalculateCourseMarks(double percent, double weight)

@@ -94,9 +94,9 @@ namespace GradesTracker.Presentation
                     Console.Write(
                             $"{course.Id, -3}"
                             + $"{course.Code, -12}"
-                            + $"{c.CourseMarksTotal, 15:f2}"
-                            + $"{c.WeightTotal, 10:f2}"
-                            + $"{c.PercentTotal, 11:f2}\n"
+                            + $"{c.CourseMarksTotal, 15:f1}"
+                            + $"{c.WeightTotal, 10:f1}"
+                            + $"{c.PercentTotal, 11:f1}\n"
                         );
                 }
             }
@@ -110,7 +110,6 @@ namespace GradesTracker.Presentation
             }
             else
             {
-                GradeManagement.CalculateEvaluations(ref course);
 
                 Console.WriteLine(
                     $"{"#.", -3}"
@@ -122,15 +121,18 @@ namespace GradesTracker.Presentation
                     + $"{"Weight/100", 13}\n"
                     );
 
-                foreach (Evaluation eval in course.Evaluations)
+                Course c = course;
+                GradeManagement.CalculateEvaluations(ref c);
+
+                foreach (Evaluation eval in c.Evaluations)
                 {
                     Console.Write($"{eval.Id + ".", -3}");
                     Console.Write($"{eval.Description, -16}");
-                    Console.Write($"{eval.EarnedMarks, 15:f2}");
-                    Console.Write($"{eval.OutOf, 10:f2}");
-                    Console.Write($"{eval.Percent, 11:f2}");
-                    Console.Write($"{eval.CourseMarks, 16:f2}");
-                    Console.Write($"{eval.Weight, 13:f2}\n");
+                    Console.Write($"{eval.EarnedMarks, 15:f1}");
+                    Console.Write($"{eval.OutOf, 10:f1}");
+                    Console.Write($"{eval.Percent, 11:f1}");
+                    Console.Write($"{eval.CourseMarks, 16:f1}");
+                    Console.Write($"{eval.Weight, 13:f1}\n");
                 }
             }
         }
@@ -145,11 +147,11 @@ namespace GradesTracker.Presentation
                     + $"{"Weight/100", 13}"
             );
 
-            Console.Write($"{eval.EarnedMarks, 12:f2}");
-            Console.Write($"{eval.OutOf, 10:f2}");
-            Console.Write($"{eval.Percent, 11:f2}");
-            Console.Write($"{eval.CourseMarks, 16:f2}");
-            Console.Write($"{eval.Weight, 13:f2}\n");
+            Console.Write($"{eval.EarnedMarks, 12:f1}");
+            Console.Write($"{eval.OutOf, 10:f1}");
+            Console.Write($"{eval.Percent, 11:f1}");
+            Console.Write($"{eval.CourseMarks, 16:f1}");
+            Console.Write($"{eval.Weight, 13:f1}\n");
         }
 
         private void PrintFooter(Footer footer)

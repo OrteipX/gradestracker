@@ -1,15 +1,16 @@
-using System;
-using System.Collections.Generic;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
+using System;
+using System.Collections.Generic;
+using GradesTracker.Data;
 
 namespace GradesTracker.Logic
 {
     public static class Util
     {
         public static T? GetValueOrNull<T>(string value) where T : struct
-        {
-            if (string.IsNullOrEmpty(value))
+        { if (string.IsNullOrEmpty(value))
                 return null;
             else
                 return (T)Convert.ChangeType(value, typeof(T));
@@ -51,33 +52,23 @@ namespace GradesTracker.Logic
             return true;
         }
 
-        public static bool ValidateJsonObj(string jsonString, string jsonSchema)
+        public static bool ValidateJsonObj(Course course, string jsonSchema)
         {
             IList<string> validationEvents = new List<string>();
-            try
-            {
-                JsonSchema schema = JsonSchema.Parse(System.IO.File.ReadAllText(jsonSchema));
-                JObject jsonObject = JObject.Parse(jsonString);
+            JSchema schema = JSchema.Parse(System.IO.File.ReadAllText(jsonSchema));
+            JObject c = JObject.FromObject(course);
 
-                if (jsonObject.IsValid(schema, out validationEvents))
-                {
-                    return true;
-                }
-                else
-                {
-                    foreach (string evt in validationEvents)
-                    {
-                        Console.WriteLine(evt);
-                    }
-                }
-            }
-            catch (Exception e)
+            if (!c.IsValid(schema, out validationEvents))
             {
-                Console.WriteLine(e);
+                foreach(string msg in validationEvents)
+                    Console.WriteLine(msg);
+
+                System.Threading.Thread.Sleep(Constants.TIMEOUT_2);
+
+                return false;
             }
 
-            return false;
-
+            return true;
         }
     }
 }
