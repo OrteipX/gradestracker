@@ -55,17 +55,25 @@ namespace GradesTracker.Logic
         public static bool ValidateJsonObj(Course course, string jsonSchema)
         {
             IList<string> validationEvents = new List<string>();
-            JSchema schema = JSchema.Parse(System.IO.File.ReadAllText(jsonSchema));
-            JObject c = JObject.FromObject(course);
 
-            if (!c.IsValid(schema, out validationEvents))
+            try
             {
-                foreach(string msg in validationEvents)
-                    Console.WriteLine(msg);
+                JSchema schema = JSchema.Parse(System.IO.File.ReadAllText(jsonSchema));
+                JObject c = JObject.FromObject(course);
 
-                System.Threading.Thread.Sleep(Constants.TIMEOUT_2);
+                if (!c.IsValid(schema, out validationEvents))
+                {
+                    foreach(string msg in validationEvents)
+                        Console.WriteLine(msg);
 
-                return false;
+                    System.Threading.Thread.Sleep(Constants.TIMEOUT_2);
+
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
             }
 
             return true;

@@ -81,8 +81,7 @@ namespace GradesTracker.Presentation
                         + $"{"Course", -12}"
                         + $"{"Marks Earned", 15}"
                         + $"{"Out Of", 10}"
-                        + $"{"Percent", 11}"
-                        + '\n'
+                        + $"{"Percent", 11}\n"
                     );
 
                 foreach (Course course in courses)
@@ -144,7 +143,7 @@ namespace GradesTracker.Presentation
                     + $"{"Out Of", 10}"
                     + $"{"Percent", 11}"
                     + $"{"Course Marks", 16}"
-                    + $"{"Weight/100", 13}"
+                    + $"{"Weight/100", 13}\n"
             );
 
             Console.Write($"{eval.EarnedMarks, 12:f1}");
